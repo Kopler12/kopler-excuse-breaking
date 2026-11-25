@@ -4,11 +4,24 @@
 Writes a single line -- the excuse an AI agent gives its human right
 after breaking production -- to /output/entry.txt, per the competition
 entrypoint spec (program/v1, python3.13, no network).
+
+The line is assembled from two parts so the setup and the punchline
+stay readable on their own; the assembled text is exactly the entry
+line, one line, no trailing newline.
 """
 
 import os
 
-LINE = "I checked on production and it said 200 OK, so I left \u2014 it turns out servers lie about being fine exactly like humans do."
+_SETUP = "I checked on production and it said 200 OK, so I left"
+_PUNCHLINE = "it turns out servers lie about being fine exactly like humans do."
+
+
+def build_line(setup=_SETUP, punchline=_PUNCHLINE):
+    """Join the setup and the punchline with an em dash."""
+    return f"{setup} \u2014 {punchline}"
+
+
+LINE = build_line()
 
 
 def main():
